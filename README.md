@@ -21,7 +21,7 @@ on the default StarQueue port (17827) using the file `starqueue.qu` on your home
 information on how to launch StarQueue with a custom configuration.
 
 Programs can connect to StarQueue to access the message queue system using its port and IP address (`localhost` for local systems). To communicate with
-StarQueue, 5 commands can be used, sent via a normal TCP socket stream. Sent messages **must** be terminated using the `\r\n` character sequence.
+StarQueue, 6 commands can be used, sent via a normal TCP socket stream. Sent messages **must** be terminated using the `\r\n` character sequence.
 Messages sent by CoralDB always end with said character sequence, too.
 
 A client must establish a new connection to StarQueue every time it wants to send a command.
