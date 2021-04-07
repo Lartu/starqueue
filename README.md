@@ -93,17 +93,21 @@ Command | Description
 In this example, `\r\n` at the end of lines are omitted.
 
 ```
-Client:  SET color1 "blue"
+Client:    ENQUEUE "hi there"
 StarQueue: OK.
-Client:  SET color2 "red"
+Client:    ENQUEUE "gotta go!"
 StarQueue: OK.
-Client:  SET color1 "other red, better than blue"
+Client:    ENQUEUE "bye!"
 StarQueue: OK.
-Client:  GET color2
-StarQueue: "red"
-Client:  DROP color2
+Client:    DEQUEUE
+StarQueue: "hi there"
+Client:    SIZE
+StarQueue: 2
+Client:    DEQUEUE
+StarQueue: "gotta go!"
+Client:    CLEAR
 StarQueue: OK.
-Client:  GET color2
+Client:    DEQUEUE
 StarQueue: ERROR.
 ```
 
