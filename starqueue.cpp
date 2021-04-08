@@ -56,39 +56,35 @@ void show_help()
 void push_value(const std::string &value)
 {
     // Complexity: O(1)
-    global_queue_mutex.lock();
+    std::lock_guard<std::mutex> lk(global_queue_mutex);
     global_queue.push(value);
-    global_queue_mutex.unlock();
 }
 
 bool pop_value(std::string& out_value)
 {
     bool is_empty = false;
-    global_queue_mutex.lock();
+    std::lock_guard<std::mutex> lk(global_queue_mutex);
     is_empty = global_queue.empty();
-    if(!is_empty)
+    if (!is_empty)
     {
         out_value = global_queue.front();
         global_queue.pop();
     }
-    global_queue_mutex.unlock();
     return !is_empty;
 }
 
 std::string get_queue_size()
 {
-    global_queue_mutex.lock();
+    std::lock_guard<std::mutex> lk(global_queue_mutex);
     size_t size = global_queue.size();
-    global_queue_mutex.unlock();
     return std::to_string(size);
 }
 
 void clear_queue()
 {
-    global_queue_mutex.lock();
+    std::lock_guard<std::mutex> lk(global_queue_mutex);
     std::queue<std::string> empty;
     std::swap(global_queue, empty );
-    global_queue_mutex.unlock();
 }
 
 int test_save_file_permissions()
