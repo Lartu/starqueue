@@ -18,9 +18,11 @@
 
 #define VERSION "1.0.0"
 
+using namespace std::chrono;
+
 char ERROR_MSG[] = "ERROR.\r\n";
 char OK_MSG[] = "OK.\r\n";
-int CHECKPOINT_TIME = 1000 * 60 * 10;
+auto CHECKPOINT_TIME = duration_cast<milliseconds>(minutes{10}); 
 
 std::string global_filename = "";
 unsigned int global_port = 17827;
@@ -133,7 +135,7 @@ void checkpoint_handler()
 {
     while (true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(CHECKPOINT_TIME));
+        std::this_thread::sleep_for(CHECKPOINT_TIME);
         save_datafile();
     }
 }
@@ -303,7 +305,7 @@ int parse_arguments(int argc, char **argv)
             {
                 try
                 {
-                    CHECKPOINT_TIME = stoi(argument) * 1000;
+                    CHECKPOINT_TIME = duration_cast<milliseconds>(seconds{stoi(argument)});
                 }
                 catch (const std::invalid_argument &ia)
                 {
